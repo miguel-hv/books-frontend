@@ -2,6 +2,7 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import { Books } from './components';
+import { Authors } from './components';
 
 const App = () => {
 
@@ -10,6 +11,7 @@ const App = () => {
     {/* navbar */}
       <Routes>
         <Route path="/" element={<Books/>}/>
+        <Route path="/authors" element={<Authors/>}/>
       </Routes>
     </Router>
   );
