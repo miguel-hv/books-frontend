@@ -15,6 +15,21 @@ const App = () => {
 
   const [ booksList, setBooksList ] = useState(INITIAL_STATE);
   
+  useEffect(() => {
+    fetch('http://localhost:3001/books')
+    .then((res) => res.json())
+    .then((res) => {
+        console.log(res);
+        setBooksList(res);
+    })
+    .catch((error) => {
+       console.log(error)
+    });  
+    
+  }, []);
+
+
+
   return (
     <div>        
       {booksList.map(e => (
