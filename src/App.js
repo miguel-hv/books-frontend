@@ -1,23 +1,29 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState, useEffect } from "react";
 
-function App() {
+
+const INITIAL_STATE =  [
+    {
+      name : "The wonder down under",
+      isbn: "978-1-68144-021-7",
+      author: [],
+    },    
+];
+
+
+const App = () => {
+
+  const [ booksList, setBooksList ] = useState(INITIAL_STATE);
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>        
+      {booksList.map(e => (
+        <li key={e.isbn}>
+          <p>{e.name}</p>
+          <p>{e.author}</p>
+          <p>{e.isbn}</p>
+        </li>
+      ))} 
     </div>
   );
 }
