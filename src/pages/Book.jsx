@@ -11,22 +11,34 @@ const Book = () => {
         fetch('http://localhost:3001/book/'+id)
         .then((res) => res.json())
         .then((res) => {
+            console.log(res);
             setBook(res);
         })
         .catch((error) => {
+        console.log(error)
         });  
     }, []);
 
-    const [ book, setBook ] = useState([]);
+    const [ book, setBook ] = useState();
+    console.log("libro");
+    console.log(book);
+
+    let Author;
+
+    if(book && (book.author).length){
+        Author = (
+            book.author.map(e => ( 
+                    <p key={e.last_name}>{e.first_name} {e.last_name}</p>
+                ))
+        );
+    }
 
     if (book) {
         return (
             <div className="ml-20 text-3xl">
                 <p>{book.name}</p>
                 <p>{book.isbn}</p>
-                { book.author.map(e => ( 
-                    <p>{e.first_name} {e.last_name}</p>
-                ))}
+                { Author }
             </div>
         )
     } else {
