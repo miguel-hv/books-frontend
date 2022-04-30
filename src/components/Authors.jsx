@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import Banner from "./Banner";
+import Grid from "./Grid";
+import Card from "./Card";
 
   
 const Authors = () => {
@@ -17,17 +19,17 @@ const Authors = () => {
     }, []);
 
     const [ authorsList, setAuthorsList ] = useState([]);
-    console.log(authorsList);
+
     if (authorsList.length) {
         return (
-            <div>        
-            {authorsList.map(e => (
-            <li key={e.last_name}>
-                <p>{e.first_name}</p>
-                <p>{e.last_name}</p>
-            </li>
-            ))} 
-        </div>
+            <Grid>
+                {authorsList.map(e => {
+                    let full_name = `${e.first_name} ${e.last_name}`;
+                    return (
+                    <Card key={e._id} title={full_name}/>
+                    );
+                })} 
+            </Grid>
         );
     } else {
         return (

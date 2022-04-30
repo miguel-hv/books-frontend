@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Banner from "./Banner";
 import Card from "./Card";
+import Grid from "./Grid";
 
   
 const Books = () => {
@@ -21,13 +22,11 @@ const Books = () => {
     console.log(booksList);
     if (booksList.length) {
         return (
-            <div>        
+            <Grid>
                 {booksList.map(e => (
-                <li key={e._id}>
-                    <Card title={e.name} description={e.author} id={e._id}/>
-                </li>
+                    <Card key={e._id} title={e.name} description={e.author} id={e._id}/>
                 ))} 
-            </div>
+            </Grid>
         );
     } else {
         return (
