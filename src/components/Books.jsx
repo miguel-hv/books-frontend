@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import Banner from "./Banner";
+import Card from "./Card";
 
   
 const Books = () => {
@@ -20,20 +22,18 @@ const Books = () => {
     if (booksList.length) {
         return (
             <div>        
-            {booksList.map(e => (
-            <li key={e.isbn}>
-                <p>{e.name}</p>
-                <p>{e.author}</p>
-                <p>{e.isbn}</p>
-            </li>
-            ))} 
-        </div>
+                {booksList.map(e => (
+                <li key={e._id}>
+                    <Card title={e.name} description={e.author} id={e._id}/>
+                </li>
+                ))} 
+            </div>
         );
     } else {
         return (
-            <h1 class="font-medium leading-tight text-5xl mt-20 pl-10">
-                Sorry, we were not able to find any collection &#128531;
-            </h1>
+            <Banner>
+                Sorry, we were not able to find any books &#128531;
+            </Banner>
         );
     }
 

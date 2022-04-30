@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Banner from "./Banner";
 
   
 const Authors = () => {
@@ -30,9 +31,9 @@ const Authors = () => {
         );
     } else {
         return (
-            <h1 class="font-medium leading-tight text-5xl mt-20 pl-10">
-                Sorry, we were not able to find any collection &#128531;
-            </h1>
+            <Banner>
+                Sorry, we were not able to find any authors &#128531;
+            </Banner>
         );
     }
 
