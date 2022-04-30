@@ -10,16 +10,13 @@ const Books = () => {
         fetch('http://localhost:3001/books')
         .then((res) => res.json())
         .then((res) => {
-            console.log(res);
             setBooksList(res);
         })
         .catch((error) => {
-        console.log(error)
         });  
     }, []);
 
     const [ booksList, setBooksList ] = useState([]);
-    console.log(booksList);
     if (booksList.length) {
         return (
             <Grid>

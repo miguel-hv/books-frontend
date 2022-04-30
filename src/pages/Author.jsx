@@ -13,16 +13,13 @@ const Author = () => {
         fetch('http://localhost:3001/author/'+id)
         .then((res) => res.json())
         .then((res) => {
-            console.log(res);
             setAuthor(res);
         })
         .catch((error) => {
-        console.log(error)
         });  
     }, []);
 
     const [ author, setAuthor ] = useState([]);
-    console.log(author);
 
     if (author) {
         return (

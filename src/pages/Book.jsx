@@ -11,17 +11,13 @@ const Book = () => {
         fetch('http://localhost:3001/book/'+id)
         .then((res) => res.json())
         .then((res) => {
-            console.log(res);
             setBook(res);
         })
         .catch((error) => {
-        console.log(error)
         });  
     }, []);
 
     const [ book, setBook ] = useState([]);
-    console.log(book);
-    console.log(book.author);
 
     if (book) {
         return (

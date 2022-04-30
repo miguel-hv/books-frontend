@@ -10,11 +10,9 @@ const Authors = () => {
         fetch('http://localhost:3001/authors')
         .then((res) => res.json())
         .then((res) => {
-            console.log(res);
             setAuthorsList(res);
         })
         .catch((error) => {
-        console.log(error)
         });  
     }, []);
 
