@@ -1,5 +1,5 @@
 
-const Card = ({title, description, id}) => {
+const BookCard = ({title, description, id}) => {
     let Description;
 
     if(description && description.length){
@@ -23,4 +23,4 @@ const Card = ({title, description, id}) => {
     );
 };
 
-export default Card;
+export default BookCard;

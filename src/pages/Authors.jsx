@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import Banner from "./Banner";
-import Grid from "./Grid";
-import Card from "./Card";
+import Banner from "../components/Banner";
+import Grid from "../components/Grid";
+import AuthorCard from "../components/AuthorCard";
 
   
 const Authors = () => {
@@ -26,7 +26,7 @@ const Authors = () => {
                 {authorsList.map(e => {
                     let full_name = `${e.first_name} ${e.last_name}`;
                     return (
-                    <Card key={e._id} title={full_name}/>
+                    <AuthorCard key={e._id} title={full_name} id={e._id}/>
                     );
                 })} 
             </Grid>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import Banner from "./Banner";
-import Card from "./Card";
-import Grid from "./Grid";
+import Banner from "../components/Banner";
+import BookCard from "../components/BookCard";
+import Grid from "../components/Grid";
 
   
 const Books = () => {
@@ -24,7 +24,7 @@ const Books = () => {
         return (
             <Grid>
                 {booksList.map(e => (
-                    <Card key={e._id} title={e.name} description={e.author} id={e._id}/>
+                    <BookCard key={e._id} title={e.name} description={e.author} id={e._id}/>
                 ))} 
             </Grid>
         );

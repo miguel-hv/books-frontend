@@ -1,8 +1,8 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import { Books, Navbar } from './components';
-import { Authors } from './components';
+import { Navbar } from './components';
+import { Authors, Books, Author, Book } from './pages';
 
 const App = () => {
 
@@ -12,6 +12,8 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Books/>}/>
         <Route path="/authors" element={<Authors/>}/>
+        <Route path="/book/:id" element={<Book/>}/>
+        <Route path="/author/:id" element={<Author/>}/>
       </Routes>
     </Router>
   );

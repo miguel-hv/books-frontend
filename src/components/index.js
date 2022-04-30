@@ -1,11 +1,9 @@
-import Books from "./Books";
-import Authors from "./Authors";
-import Card from "./Card";
+import BookCard from "./BookCard";
+import AuthorCard from "./AuthorCard";
 import Navbar from "./Navbar";
 
 export {
-    Books,
-    Authors,
-    Card,
+    BookCard,
+    AuthorCard,
     Navbar,
 }
