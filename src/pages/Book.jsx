@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import Banner from "../components/Banner";
 import { useParams } from "react-router";
-
+import { BASE_URL } from "../App";
   
 const Book = () => {
 
         const { id } = useParams();
   
     useEffect(() => {
-        fetch('http://localhost:3001/book/'+id)
+        fetch(BASE_URL+'/book/'+id)
         .then((res) => res.json())
         .then((res) => {
             console.log(res);

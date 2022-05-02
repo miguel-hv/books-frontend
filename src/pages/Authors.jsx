@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import Banner from "../components/Banner";
 import Grid from "../components/Grid";
 import AuthorCard from "../components/AuthorCard";
-
+import { BASE_URL } from "../App";
   
 const Authors = () => {
 
     useEffect(() => {
-        fetch('http://localhost:3001/authors')
+        fetch(BASE_URL+'/authors')
         .then((res) => res.json())
         .then((res) => {
             setAuthorsList(res);

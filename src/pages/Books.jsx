@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import Banner from "../components/Banner";
 import BookCard from "../components/BookCard";
 import Grid from "../components/Grid";
-
+import { BASE_URL } from "../App";
   
 const Books = () => {
 
     useEffect(() => {
-        fetch('http://localhost:3001/books')
+        fetch(BASE_URL+'/books')
         .then((res) => res.json())
         .then((res) => {
             setBooksList(res);

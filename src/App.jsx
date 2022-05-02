@@ -4,6 +4,9 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Navbar } from './components';
 import { Authors, Books, Author, Book } from './pages';
 
+// export const BASE_URL = "http://localhost:3001"; 
+export const BASE_URL = 'https://soamee-api.herokuapp.com';
+
 const App = () => {
 
   return (

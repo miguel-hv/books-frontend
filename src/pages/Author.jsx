@@ -3,6 +3,7 @@ import Banner from "../components/Banner";
 import Grid from "../components/Grid";
 import AuthorCard from "../components/AuthorCard";
 import { useParams } from "react-router";
+import { BASE_URL } from "../App";
 
   
 const Author = () => {
@@ -10,7 +11,7 @@ const Author = () => {
         const { id } = useParams();
   
     useEffect(() => {
-        fetch('http://localhost:3001/author/'+id)
+        fetch(BASE_URL+'/author/'+id)
         .then((res) => res.json())
         .then((res) => {
             setAuthor(res);
