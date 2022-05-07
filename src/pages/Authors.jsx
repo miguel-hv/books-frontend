@@ -3,6 +3,7 @@ import Banner from "../components/Banner";
 import Grid from "../components/Grid";
 import AuthorCard from "../components/AuthorCard";
 import { BASE_URL } from "../App";
+import { NavLink } from "react-router-dom";
   
 const Authors = () => {
 
@@ -18,8 +19,9 @@ const Authors = () => {
 
     const [ authorsList, setAuthorsList ] = useState([]);
 
+    let AuthorsGrid;
     if (authorsList.length) {
-        return (
+        AuthorsGrid = (
             <Grid>
                 {authorsList.map(e => {
                     let full_name = `${e.first_name} ${e.last_name}`;
@@ -30,12 +32,25 @@ const Authors = () => {
             </Grid>
         );
     } else {
-        return (
+        AuthorsGrid = (
             <Banner>
                 Sorry, we were not able to find any authors &#128531;
             </Banner>
-        );
+        );   
     }
+
+    return (
+        <>
+            <div>
+                <NavLink to="/author/add" 
+                    className="bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 ml-4 text-white rounded focus:outline-none focus:shadow-outline active"  
+                >
+                    Add new author
+                </NavLink>
+            </div>
+            {AuthorsGrid}
+        </>
+    );
 
 };
 

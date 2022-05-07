@@ -7,14 +7,14 @@ const Navbar = () => {
                 <NavLink to="/" 
                      className={({ isActive }) => (isActive ? 'text-purple-700' : 'inactive')}
                 >
-                    <h2>Books</h2>
+                    <p>Books</p>
                 </NavLink>
             </div>
             <div>
                 <NavLink to="/authors" 
                      className={({ isActive }) => (isActive ? 'text-purple-700' : 'inactive')}
                 >
-                    <h2>Authors</h2>
+                    <p>Authors</p>
                 </NavLink>
             </div>
         </nav>

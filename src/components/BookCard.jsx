@@ -4,11 +4,13 @@ const BookCard = ({title, description, id}) => {
 
     if(description && description.length){
         Description = (
-            <p className="font-normal text-gray-700 dark:text-gray-400">
-                {description.map(e => (
+            
+                description.map(e => (
+                    <p className="font-normal text-gray-700 dark:text-gray-400">
                     `${e.first_name} ${e.last_name}`
-                    ))} 
-            </p>
+                    </p>
+                    ))
+            
         );
     }
     return(
