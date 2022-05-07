@@ -40,8 +40,9 @@ const Authors = () => {
     }
 
     return (
-        <>
-            <div>
+        <div className="container mx-auto">
+
+            <div className="my-10">
                 <NavLink to="/author/add" 
                     className="bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 ml-4 text-white rounded focus:outline-none focus:shadow-outline active"  
                 >
@@ -49,7 +50,7 @@ const Authors = () => {
                 </NavLink>
             </div>
             {AuthorsGrid}
-        </>
+        </div>
     );
 
 };

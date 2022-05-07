@@ -19,11 +19,14 @@ const Books = () => {
     const [ booksList, setBooksList ] = useState([]);
     if (booksList.length) {
         return (
-            <Grid>
-                {booksList.map(e => (
-                    <BookCard key={e._id} title={e.name} description={e.author} id={e._id}/>
-                ))} 
-            </Grid>
+            <div className="container mx-auto">
+
+                <Grid>
+                    {booksList.map(e => (
+                        <BookCard key={e._id} title={e.name} description={e.author} id={e._id}/>
+                    ))} 
+                </Grid>
+            </div>
         );
     } else {
         return (
