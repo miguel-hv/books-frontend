@@ -1,25 +1,38 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BASE_URL } from "../App";
 
-let authorsArray = ["pepito", "pepita", "tiburcio"];
+let authorsArray = ["626f96222330bb8d0114d0b7", "626f96cb2330bb8d0114d0bb", "tiburcio"];
 
 const CreateBook = () => {
-    // const [ author, setAuthor ] = useState('');
-    const [ name, setName ] = useState('');
+    const [ title, setTitle ] = useState('');
     const [ isbn, setIsbn ] = useState('');
     const [ author, setAuthor ] = useState('');
-    const [ authors, setAuthors ] = useState(authorsArray);
+    const [ authorsList, setAuthorsList ] = useState([]);
+
+    useEffect(() => {
+        fetch(BASE_URL+'/authors')
+        .then((res) => res.json())
+        .then((res) => {
+            setAuthorsList(res);
+        })
+        .catch((error) => {
+        });  
+    }, []);
+
+    console.log(authorsList);
+
+    
   
     const handleFormSubmit = ev => {
       ev.preventDefault();
       let book = {
         author: author,
-        name: name,
+        name: title,
         isbn: isbn,
       };
 
       try {
-        fetch(BASE_URL+'/author', {
+        fetch(BASE_URL+'/book', {
             method: 'POST',
             headers: {
             //    'Accept': 'application/json',
@@ -36,7 +49,7 @@ const CreateBook = () => {
          console.log('error post');
      }
 
-      setName('');
+      setTitle('');
       setIsbn('');
       setAuthor('');
     }
@@ -52,10 +65,11 @@ const CreateBook = () => {
                         <select 
                         className=" appearance-none bg-white block w-full text-gray-700 text-sm font-bold mb-2 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow border leading-tight focus:outline-none focus:shadow-outline"
                         name="author"
-                        defaultValue=""
+                        value={author}
+                        onChange={e => setAuthor(e.target.value)}
                         >
-                            {authors.map(el =>
-                                <option key={el} value={el}>{el}</option>
+                            {authorsList.map(el =>
+                                <option key={el._id} value={el._id}>{el.first_name} {el.last_name}</option>
                             )};
                         </select>
                         <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -71,8 +85,8 @@ const CreateBook = () => {
                         type="text"
                         placeholder="Title of the book"
                         name="name"
-                        value={name}
-                        onChange={e => setName(e.target.value)}
+                        value={title}
+                        onChange={e => setTitle(e.target.value)}
                     />
                     </label>
                 </div>
