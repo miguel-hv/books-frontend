@@ -20,8 +20,6 @@ const Book = () => {
     }, []);
 
     const [ book, setBook ] = useState();
-    console.log("libro");
-    console.log(book);
 
     let Author;
 

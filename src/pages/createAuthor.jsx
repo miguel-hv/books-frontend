@@ -1,35 +1,18 @@
 import { useState } from "react";
 import { BASE_URL } from "../App";
 
-const CreateAuthor = () => {
+const CreateAuthor = ({postAuthor}) => {
     // const [ author, setAuthor ] = useState('');
     const [ firstName, setFirstName ] = useState('');
     const [ lastName, setLastName ] = useState('');
-  
+
     const handleFormSubmit = ev => {
       ev.preventDefault();
       let author = {
         first_name: firstName,
         last_name: lastName,
       };
-
-      try {
-        fetch(BASE_URL+'/author', {
-            method: 'POST',
-            headers: {
-            //    'Accept': 'application/json',
-               'Content-Type': 'application/json',
-            //    'Access-Control-Allow-Origin': '*' // CORS
-            },
-            // credentials: 'include',        
-            body: JSON.stringify(author)
-        })
-        .then(response => {console.log(response); return response.json();});
-        console.log(author);
-        console.log(JSON.stringify(author));
-     } catch (error) {
-         console.log('error post');
-     }
+      postAuthor(author);    
 
       setFirstName('');
       setLastName('');

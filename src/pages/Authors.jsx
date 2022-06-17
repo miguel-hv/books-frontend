@@ -5,19 +5,11 @@ import AuthorCard from "../components/AuthorCard";
 import { BASE_URL } from "../App";
 import { NavLink } from "react-router-dom";
   
-const Authors = () => {
+const Authors = ({ getAuthors, authorsList}) => {
 
     useEffect(() => {
-        fetch(BASE_URL+'/authors')
-        .then((res) => res.json())
-        .then((res) => {
-            setAuthorsList(res);
-        })
-        .catch((error) => {
-        });  
+        getAuthors(); 
     }, []);
-
-    const [ authorsList, setAuthorsList ] = useState([]);
 
     let AuthorsGrid;
     if (authorsList.length) {

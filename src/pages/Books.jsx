@@ -5,19 +5,12 @@ import Grid from "../components/Grid";
 import { BASE_URL } from "../App";
 import { NavLink } from "react-router-dom";
   
-const Books = () => {
+const Books = ({ getBooks, booksList }) => {
 
     useEffect(() => {
-        fetch(BASE_URL+'/books')
-        .then((res) => res.json())
-        .then((res) => {
-            setBooksList(res);
-        })
-        .catch((error) => {
-        });  
+        getBooks();
     }, []);
 
-    const [ booksList, setBooksList ] = useState([]);
 
     let BooksGrid;
     if (booksList.length) {

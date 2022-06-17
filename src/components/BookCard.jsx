@@ -6,7 +6,7 @@ const BookCard = ({title, description, id}) => {
         Description = (
             
                 description.map(e => (
-                    <p className="font-normal text-gray-700 dark:text-gray-400">
+                    <p key={`${e.first_name}-${e.last_name}`} className="font-normal text-gray-700 dark:text-gray-400">
                     {e.first_name} {e.last_name}
                     </p>
                     ))

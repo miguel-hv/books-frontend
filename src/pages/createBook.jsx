@@ -1,26 +1,15 @@
 import { useEffect, useState } from "react";
 import { BASE_URL } from "../App";
 
-let authorsArray = ["626f96222330bb8d0114d0b7", "626f96cb2330bb8d0114d0bb", "tiburcio"];
 
-const CreateBook = () => {
+const CreateBook = ({ postBook, getAuthors, authorsList }) => {
     const [ title, setTitle ] = useState('');
     const [ isbn, setIsbn ] = useState('');
     const [ author, setAuthor ] = useState('');
-    const [ authorsList, setAuthorsList ] = useState([]);
 
     useEffect(() => {
-        fetch(BASE_URL+'/authors')
-        .then((res) => res.json())
-        .then((res) => {
-            setAuthorsList(res);
-        })
-        .catch((error) => {
-        });  
+        getAuthors();
     }, []);
-
-    console.log(authorsList);
-
     
   
     const handleFormSubmit = ev => {
@@ -31,24 +20,7 @@ const CreateBook = () => {
         isbn: isbn,
       };
 
-      try {
-        fetch(BASE_URL+'/book', {
-            method: 'POST',
-            headers: {
-            //    'Accept': 'application/json',
-               'Content-Type': 'application/json',
-            //    'Access-Control-Allow-Origin': '*' // CORS
-            },
-            // credentials: 'include',        
-            body: JSON.stringify(book),
-        })
-        .then(response => {console.log(response); return response.json();});
-        console.log(book);
-        console.log(JSON.stringify(book));
-     } catch (error) {
-         console.log('error post');
-     }
-
+      postBook(book);    
       setTitle('');
       setIsbn('');
       setAuthor('');
