@@ -1,61 +1,15 @@
-import { useState, useEffect } from "react";
 import Banner from "../components/Banner";
 import Grid from "../components/Grid";
 import AuthorCard from "../components/AuthorCard";
-import { BASE_URL } from "../App";
 import { NavLink } from "react-router-dom";
-import { useReducer } from "react";
-  
+import { useAuthors } from "../hooks/useAuthors";
 
-const initialState = {
-    loading: 1,
-    error: '',
-    success: false,
-}
-
-const reducer = (authorsList, action) => {
-    switch(action.type){
-        case 'LOADING': 
-            return {
-                loading: true,
-                success: false,
-                error: false,
-            }
-        case 'SUCCESS': 
-            return {
-                loading: false,
-                success: action.payload,
-                error: false,
-            }
-        case 'ERROR': 
-            return {
-                loading: false,
-                success: false,
-                error: true,
-            }
-        default:
-            return authorsList
-    }
-}
 
 const Authors = () => {
-    // const [ authorsList, setAuthorsList ] = useState([]);
-    const [authorsList, dispatch] = useReducer(reducer, initialState);
 
-    useEffect(() => {
-        fetch(BASE_URL+'/authors')
-        .then((res) => res.json())
-        .then((res) => {
-            // setAuthorsList(res);
-            dispatch({ type: 'SUCCESS', payload: res});
-            
-        })
-        .catch((error) => {
-            dispatch({ type: 'ERROR' });
-        });  
-    }, []);
+    const { authorsList } = useAuthors();
 
-
+console.log(authorsList);
     let AuthorsGrid;
     // if (authorsList.length) {
     if (authorsList.success) {
@@ -74,13 +28,17 @@ const Authors = () => {
     } else if (authorsList.error) {
         AuthorsGrid = (
             <Banner>
-                Sorry, we were not able to find any authors &#128531;
+                Something went wrong &#128531;
+                {authorsList.error}
             </Banner>
         );   
     } else {
+        AuthorsGrid = (
         <Banner>
-            Loading data &#8987;
+            {/* Loading data &#8987; */}
+            Sorry, we were not able to find any authors &#128531;
         </Banner>
+        );
     }
 
     return (
