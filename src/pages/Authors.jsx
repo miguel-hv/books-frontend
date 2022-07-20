@@ -2,12 +2,12 @@ import Banner from "../components/Banner";
 import Grid from "../components/Grid";
 import AuthorCard from "../components/AuthorCard";
 import { NavLink } from "react-router-dom";
-import { useAuthors } from "../hooks/useAuthors";
+import { useGetAuthors } from "../hooks/useAuthors";
 
 
 const Authors = () => {
 
-    const { authorsList } = useAuthors();
+    const { authorsList } = useGetAuthors();
 
 console.log(authorsList);
     let AuthorsGrid;
@@ -22,7 +22,6 @@ console.log(authorsList);
                     <AuthorCard key={e._id} title={full_name} id={e._id}/>
                     );
                 })} 
-                success
             </Grid>
         );
     } else if (authorsList.error) {

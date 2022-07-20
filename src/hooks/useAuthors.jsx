@@ -45,7 +45,7 @@ const reducer = (authorsList = initialState, action = {}) => {
     }
 }
 
-export const useAuthors = () => {
+export const useGetAuthors = () => {
 
     const [authorsList, dispatch] = useReducer(reducer, reducer());
     
@@ -64,4 +64,9 @@ export const useAuthors = () => {
     return { 
         authorsList
      };
+}
+
+export const useDeleteAuthors = (id) => {
+
+     console.log("delete lejano");
 }
