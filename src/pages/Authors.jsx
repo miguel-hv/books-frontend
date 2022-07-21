@@ -1,21 +1,20 @@
-import { useState, useEffect } from "react";
 import Banner from "../components/Banner";
 import Grid from "../components/Grid";
 import AuthorCard from "../components/AuthorCard";
-import { BASE_URL } from "../App";
 import { NavLink } from "react-router-dom";
-  
-const Authors = ({ getAuthors, authorsList}) => {
+import { useGetAuthors } from "../hooks/useAuthors";
 
-    useEffect(() => {
-        getAuthors(); 
-    }, []);
+const Authors = () => {
+
+    const { authorsList } = useGetAuthors();
 
     let AuthorsGrid;
-    if (authorsList.length) {
+    // if (authorsList.length) {
+    if (authorsList.success) {
+        console.log(authorsList.success);
         AuthorsGrid = (
             <Grid>
-                {authorsList.map(e => {
+                {authorsList.success.map(e => {
                     let full_name = `${e.first_name} ${e.last_name}`;
                     return (
                     <AuthorCard key={e._id} title={full_name} id={e._id}/>
@@ -23,12 +22,20 @@ const Authors = ({ getAuthors, authorsList}) => {
                 })} 
             </Grid>
         );
-    } else {
+    } else if (authorsList.error) {
         AuthorsGrid = (
             <Banner>
-                Sorry, we were not able to find any authors &#128531;
+                Something went wrong &#128531;
+                {authorsList.error}
             </Banner>
         );   
+    } else {
+        AuthorsGrid = (
+        <Banner>
+            {/* Loading data &#8987; */}
+            Sorry, we were not able to find any authors &#128531;
+        </Banner>
+        );
     }
 
     return (
