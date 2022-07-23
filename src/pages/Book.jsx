@@ -1,11 +1,15 @@
 import { useState, useEffect } from "react";
 import Banner from "../components/Banner";
-import { useParams } from "react-router";
+import { useParams, useNavigate } from "react-router";
 import { BASE_URL } from "../App";
   
 const Book = () => {
 
+    const [ book, setBook ] = useState();
+
         const { id } = useParams();
+        const navigate = useNavigate();
+
   
     useEffect(() => {
         fetch(BASE_URL+'/book/'+id)
@@ -19,9 +23,20 @@ const Book = () => {
         });  
     }, []);
 
-    const [ book, setBook ] = useState();
-    console.log("libro");
-    console.log(book);
+
+    const deleteBook = () => {
+        
+        fetch(BASE_URL+'/book/'+id, {
+            method: 'DELETE',
+        })
+        .then((res) => {
+           console.log(res);
+        navigate("/", { replace: true });
+        })
+        .catch((err) => {
+            console.log(err);
+        });  
+    } 
 
     let Author;
 
@@ -35,11 +50,18 @@ const Book = () => {
 
     if (book) {
         return (
-            <div className="ml-20 text-3xl">
-                <p>{book.name}</p>
-                <p>{book.isbn}</p>
-                { Author }
-            </div>
+            <>
+                <div className="ml-20 text-3xl">
+                    <p>{book.name}</p>
+                    <p>{book.isbn}</p>
+                    { Author }
+                </div>
+                <button 
+                        className="ml-20 mt-10 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" 
+                        onClick={deleteBook}>
+                            Delete
+                </button>
+            </>
         )
     } else {
         return (

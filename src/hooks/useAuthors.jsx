@@ -66,7 +66,7 @@ export const useGetAuthors = () => {
      };
 }
 
-export const useDeleteAuthors = (id) => {
+// export const useDeleteAuthors = (id) => {
+    
 
-     console.log("delete lejano");
-}
+// }

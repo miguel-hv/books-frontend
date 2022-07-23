@@ -7,27 +7,11 @@ import { BASE_URL } from "../App";
   
 const Author = () => {
 
-        const { id } = useParams();
-        const navigate = useNavigate();
-        // const history = useLocation();
+    const [ author, setAuthor ] = useState([]);
 
-        
-        
-    const deleteAuthor = () => {
-        console.log("delete");
-        fetch(BASE_URL+'/author/'+id, {
-            method: 'DELETE',
-        })
-        .then((res) => {
-           console.log(res);
-        navigate("/authors", { replace: true });
-        })
-        .catch((err) => {
-            console.log(err);
-        });  
-        
-    } 
-  
+    const { id } = useParams();
+    const navigate = useNavigate();
+
     useEffect(() => {
         fetch(BASE_URL+'/author/'+id)
         .then((res) => res.json())
@@ -37,8 +21,30 @@ const Author = () => {
         .catch((error) => {
         });  
     }, []);
+        
+    const handleEdit = () => {
+        const bookToEdit = {
+            _id: id,
+            first_name: author.first_name,
+            last_name: author.last_name,
+        }
+        navigate("/author/add", { state: bookToEdit });
+    }
 
-    const [ author, setAuthor ] = useState([]);
+    const deleteAuthor = () => {
+        
+        fetch(BASE_URL+'/author/'+id, {
+            method: 'DELETE',
+        })
+        .then((res) => {
+           console.log(res);
+            navigate("/authors", { replace: true });
+        })
+        .catch((err) => {
+            console.log(err);
+        });  
+    }   
+
 
     if (author) {
         return (
@@ -51,6 +57,11 @@ const Author = () => {
                     className="ml-20 mt-10 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" 
                     onClick={deleteAuthor}>
                         Delete
+                </button>
+                <button 
+                    className="ml-5 mt-10 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" 
+                    onClick={handleEdit}>
+                        Edit
                 </button>
             </>
         )

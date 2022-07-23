@@ -1,38 +1,67 @@
 import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../App";
 
 const CreateAuthor = () => {
-    // const [ author, setAuthor ] = useState('');
-    const [ firstName, setFirstName ] = useState('');
-    const [ lastName, setLastName ] = useState('');
+    const { state: bookToEdit } = useLocation();
+    console.log(bookToEdit);
+
+    const [ firstName, setFirstName ] = useState(bookToEdit ? bookToEdit.first_name : '');
+    const [ lastName, setLastName ] = useState(bookToEdit ? bookToEdit.last_name : '');
   
+    const navigate = useNavigate();
+
+
     const handleFormSubmit = ev => {
       ev.preventDefault();
-      let author = {
-        first_name: firstName,
-        last_name: lastName,
-      };
 
-      try {
-        fetch(BASE_URL+'/author', {
-            method: 'POST',
-            headers: {
-            //    'Accept': 'application/json',
-               'Content-Type': 'application/json',
-            //    'Access-Control-Allow-Origin': '*' // CORS
-            },
-            // credentials: 'include',        
-            body: JSON.stringify(author)
+    //   if ( bookToEdit.first_name.length !== 0 ) {
+    if ( Object.keys(bookToEdit).length ) {
+        console.log("en el if");
+
+        fetch(BASE_URL+'/author/'+bookToEdit._id, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                _id: bookToEdit._id,
+                first_name: firstName,
+                last_name: lastName,
+            }
+            )
         })
-        .then(response => {console.log(response); return response.json();});
-        console.log(author);
-        console.log(JSON.stringify(author));
-     } catch (error) {
-         console.log('error post');
-     }
+            .then(response => response.json())
+            .then(navigate("/authors", { replace: true }))
+            .catch((error) => {
+                console.log(error)
+                });      
 
-      setFirstName('');
-      setLastName('');
+      } else {
+            let author = {
+                first_name: firstName,
+                last_name: lastName,
+            };
+
+            try {
+                fetch(BASE_URL+'/author', {
+                    method: 'POST',
+                    headers: {
+                    //    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    //    'Access-Control-Allow-Origin': '*' // CORS
+                    },
+                    // credentials: 'include',        
+                    body: JSON.stringify(author)
+                })
+                .then(response => {console.log(response); return response.json();});
+                console.log(author);
+                console.log(JSON.stringify(author));
+            } catch (error) {
+                console.log('error post');
+            }
+
+            setFirstName('');
+            setLastName('');
+        }
     }
 
     return(
