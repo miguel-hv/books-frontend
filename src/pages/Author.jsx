@@ -23,12 +23,12 @@ const Author = () => {
     }, []);
         
     const handleEdit = () => {
-        const bookToEdit = {
+        const authorToEdit = {
             _id: id,
             first_name: author.first_name,
             last_name: author.last_name,
         }
-        navigate("/author/add", { state: bookToEdit });
+        navigate("/author/add", { state: authorToEdit });
     }
 
     const deleteAuthor = () => {

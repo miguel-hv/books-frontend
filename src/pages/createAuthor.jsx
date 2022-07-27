@@ -3,11 +3,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../App";
 
 const CreateAuthor = () => {
-    const { state: bookToEdit } = useLocation();
-    console.log(bookToEdit);
+    const { state: authorToEdit } = useLocation();
+    console.log(authorToEdit);
 
-    const [ firstName, setFirstName ] = useState(bookToEdit ? bookToEdit.first_name : '');
-    const [ lastName, setLastName ] = useState(bookToEdit ? bookToEdit.last_name : '');
+    const [ firstName, setFirstName ] = useState(authorToEdit ? authorToEdit.first_name : '');
+    const [ lastName, setLastName ] = useState(authorToEdit ? authorToEdit.last_name : '');
   
     const navigate = useNavigate();
 
@@ -15,15 +15,13 @@ const CreateAuthor = () => {
     const handleFormSubmit = ev => {
       ev.preventDefault();
 
-    //   if ( bookToEdit.first_name.length !== 0 ) {
-    if ( Object.keys(bookToEdit).length ) {
-        console.log("en el if");
+    if ( authorToEdit && Object.keys(authorToEdit).length ) {
 
-        fetch(BASE_URL+'/author/'+bookToEdit._id, {
+        fetch(BASE_URL+'/author/'+authorToEdit._id, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                _id: bookToEdit._id,
+                _id: authorToEdit._id,
                 first_name: firstName,
                 last_name: lastName,
             }
@@ -52,7 +50,7 @@ const CreateAuthor = () => {
                     // credentials: 'include',        
                     body: JSON.stringify(author)
                 })
-                .then(response => {console.log(response); return response.json();});
+                .then(response => response.json());
                 console.log(author);
                 console.log(JSON.stringify(author));
             } catch (error) {

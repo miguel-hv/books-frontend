@@ -9,7 +9,6 @@ const Book = () => {
 
         const { id } = useParams();
         const navigate = useNavigate();
-
   
     useEffect(() => {
         fetch(BASE_URL+'/book/'+id)
@@ -22,6 +21,19 @@ const Book = () => {
         console.log(error)
         });  
     }, []);
+
+    const handleEdit = () => {
+        const authorsID = book.author.map( e => e._id);
+        const bookToEdit = {
+            _id: id,
+            author: authorsID,
+            name: book.name,
+            isbn: book.isbn,
+        }
+        // console.log(authorsID);
+        // console.log(bookToEdit);
+        navigate("/book/add", { state: bookToEdit });
+    }
 
 
     const deleteBook = () => {
@@ -60,6 +72,11 @@ const Book = () => {
                         className="ml-20 mt-10 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" 
                         onClick={deleteBook}>
                             Delete
+                </button>
+                <button 
+                    className="ml-5 mt-10 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" 
+                    onClick={handleEdit}>
+                        Edit
                 </button>
             </>
         )

@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router";
 import { BASE_URL } from "../App";
 
-let authorsArray = ["626f96222330bb8d0114d0b7", "626f96cb2330bb8d0114d0bb", "tiburcio"];
-
 const CreateBook = () => {
-    const [ title, setTitle ] = useState('');
-    const [ isbn, setIsbn ] = useState('');
-    const [ author, setAuthor ] = useState('');
+    const { state: bookToEdit } = useLocation();
+
+    const [ title, setTitle ] = useState(bookToEdit ? bookToEdit.name : '');
+    const [ isbn, setIsbn ] = useState(bookToEdit ? bookToEdit.isbn : '');
+    const [ author, setAuthor ] = useState(bookToEdit ? bookToEdit.author : '');
     const [ authorsList, setAuthorsList ] = useState([]);
+
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         fetch(BASE_URL+'/authors')
@@ -19,39 +23,61 @@ const CreateBook = () => {
         });  
     }, []);
 
-    console.log(authorsList);
-
+    // console.log(authorsList);
+    console.log(isbn);
+    console.log(title);
+    console.log(bookToEdit);    
     
   
     const handleFormSubmit = ev => {
       ev.preventDefault();
-      let book = {
-        author: author,
-        name: title,
-        isbn: isbn,
-      };
+      if ( bookToEdit && Object.keys(bookToEdit).length ) {
 
-      try {
-        fetch(BASE_URL+'/book', {
-            method: 'POST',
-            headers: {
-            //    'Accept': 'application/json',
-               'Content-Type': 'application/json',
-            //    'Access-Control-Allow-Origin': '*' // CORS
-            },
-            // credentials: 'include',        
-            body: JSON.stringify(book),
+        fetch(BASE_URL+'/book/'+bookToEdit._id, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                _id: bookToEdit._id,
+                author: bookToEdit.author,
+                name: title,
+                isbn: isbn,
+            }
+            )
         })
-        .then(response => {console.log(response); return response.json();});
-        console.log(book);
-        console.log(JSON.stringify(book));
-     } catch (error) {
-         console.log('error post');
-     }
-
-      setTitle('');
-      setIsbn('');
-      setAuthor('');
+            .then(response => response.json())
+            .then(navigate("/", { replace: true }))
+            .catch((error) => {
+                console.log(error)
+                });  
+        } else {
+            let book = {
+                author: author,
+                name: title,
+                isbn: isbn,
+            };
+        
+            try {
+                fetch(BASE_URL+'/book', {
+                    method: 'POST',
+                    headers: {
+                    //    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    //    'Access-Control-Allow-Origin': '*' // CORS
+                    },
+                    // credentials: 'include',        
+                    body: JSON.stringify(book),
+                })
+                .then(response => {console.log(response); return response.json();});
+                console.log(book);
+                console.log(JSON.stringify(book));
+            } catch (error) {
+                console.log('error post');
+            }
+        
+            setTitle('');
+            setIsbn('');
+            setAuthor('');
+        }    
     }
 
     return(
