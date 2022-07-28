@@ -71,9 +71,10 @@ const CreateBook = () => {
                     // credentials: 'include',        
                     body: JSON.stringify(book),
                 })
-                .then(response => {console.log(response); return response.json();});
-                console.log(book);
-                console.log(JSON.stringify(book));
+                .then(res => res.json());
+                navigate("/", { replace: true });
+                // console.log(book);
+                // console.log(JSON.stringify(book));
             } catch (error) {
                 console.log('error post');
             }

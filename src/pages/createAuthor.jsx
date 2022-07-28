@@ -51,8 +51,10 @@ const CreateAuthor = () => {
                     body: JSON.stringify(author)
                 })
                 .then(response => response.json());
-                console.log(author);
-                console.log(JSON.stringify(author));
+                navigate("/authors", { replace: true });
+                
+                // console.log(author);
+                // console.log(JSON.stringify(author));
             } catch (error) {
                 console.log('error post');
             }

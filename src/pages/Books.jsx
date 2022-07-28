@@ -21,10 +21,11 @@ const Books = () => {
 
     let BooksGrid;
     if (booksList.length) {
+        console.log(booksList);
         BooksGrid = (
             <Grid>
             {booksList.map(e => (
-                <BookCard key={e._id} title={e.name} description={e.author} id={e._id}/>
+                <BookCard key={e._id.toString()} title={e.name} description={e.author} id={e._id}/>
             ))} 
         </Grid>
         );
