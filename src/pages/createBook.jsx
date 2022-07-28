@@ -7,7 +7,7 @@ const CreateBook = () => {
 
     const [ title, setTitle ] = useState(bookToEdit ? bookToEdit.name : '');
     const [ isbn, setIsbn ] = useState(bookToEdit ? bookToEdit.isbn : '');
-    const [ author, setAuthor ] = useState(bookToEdit ? bookToEdit.author : '');
+    const [ author, setAuthor ] = useState(null);
     const [ authorsList, setAuthorsList ] = useState([]);
 
     const navigate = useNavigate();
@@ -21,12 +21,16 @@ const CreateBook = () => {
         })
         .catch((error) => {
         });  
+        setAuthor(bookToEdit ? bookToEdit.author[0] : null);
+        
     }, []);
+    
+    // console.log(author);
 
     // console.log(authorsList);
-    console.log(isbn);
-    console.log(title);
-    console.log(bookToEdit);    
+    // console.log(isbn);
+    // console.log(title);
+    // console.log(bookToEdit);    
     
   
     const handleFormSubmit = ev => {
@@ -91,9 +95,10 @@ const CreateBook = () => {
                         <select 
                         className=" appearance-none bg-white block w-full text-gray-700 text-sm font-bold mb-2 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow border leading-tight focus:outline-none focus:shadow-outline"
                         name="author"
-                        value={author}
-                        onChange={e => setAuthor(e.target.value)}
+                        value={author || ""}
+                        onChange={e => setAuthor(e.target.value || null)}
                         >
+                                <option key="0" value=""></option>
                             {authorsList.map(el =>
                                 <option key={el._id} value={el._id}>{el.first_name} {el.last_name}</option>
                             )};
